@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 900px 500px at 25% 0%, rgba(229, 72, 77, 0.10), transparent 60%),
+    radial-gradient(ellipse 900px 600px at 85% 100%, rgba(34, 197, 94, 0.06), transparent 60%),
+    #1B1B1A;
+  background-attachment: fixed;
+  color: #F5F5F5;
+}
+
+/* Claude-style scrollbars — thin, subtle, muted gray (Firefox) */
+* {
+  scrollbar-color: #4A4A47 transparent;
+  scrollbar-width: thin;
+}
+
+/* Claude-style scrollbars (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #4A4A47;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #5C5C58;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.demo-backdrop {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Waveform animation for active mic state */
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+.waveform-bar {
+  animation: wave 0.9s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Pulsing ring around the mic button while listening */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(229, 72, 77, 0.45); }
+  100% { box-shadow: 0 0 0 12px rgba(229, 72, 77, 0); }
+}
+
+.mic-pulse {
+  animation: pulse-ring 1.4s ease-out infinite;
+}
+
+/* Signal-path status dot glow when connected */
+.status-dot-connected {
+  box-shadow: 0 0 6px 1px rgba(34, 197, 94, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveform-bar,
+  .mic-pulse {
+    animation: none;
+  }
+}
