@@ -93,7 +93,7 @@ export default function ChatWidget({
     runTurn(text);
   }
 
-async function toggleMic() {
+  async function toggleMic() {
     if (voiceState === "listening") {
       micRef.current?.stop();
       micRef.current = null;
@@ -155,6 +155,7 @@ async function toggleMic() {
       wsRef.current = null;
     };
   }
+
   const isListening = voiceState === "listening";
   const isBusy = voiceState === "processing" || voiceState === "speaking";
 
@@ -163,6 +164,7 @@ async function toggleMic() {
       {/* Header */}
       <div className="flex items-center gap-2 border-b border-white/10 px-6 py-4">
         <button
+          type="button"
           onClick={onToggleSidebar}
           aria-label={sidebarOpen ? "Hide settings" : "Show settings"}
           className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-chat-text/50 transition hover:bg-white/5 hover:text-chat-text"
@@ -172,6 +174,7 @@ async function toggleMic() {
         <span className="flex-1 text-[15px] font-semibold text-chat-text">Voice Agent</span>
         {onClose && (
           <button
+            type="button"
             onClick={onClose}
             aria-label="Close chat"
             className="flex h-7 w-7 items-center justify-center rounded-full text-chat-text/50 transition hover:bg-white/5 hover:text-chat-text"
@@ -199,6 +202,7 @@ async function toggleMic() {
             </div>
             {m.role === "assistant" && !autoSpeak && (
               <button
+                type="button"
                 onClick={() => playReply(m.content)}
                 disabled={isBusy}
                 aria-label="Play reply aloud"
@@ -229,6 +233,8 @@ async function toggleMic() {
       <div className="mx-auto flex w-full max-w-3xl items-center gap-2 border-t border-white/10 px-6 py-4">
         <div className="flex flex-1 items-center rounded-full bg-chat-agentBubble px-4 py-2.5">
           <input
+            id="chat-message-input"
+            name="message"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
@@ -239,6 +245,7 @@ async function toggleMic() {
         </div>
 
         <button
+          type="button"
           onClick={toggleMic}
           disabled={isBusy}
           aria-label={isListening ? "Stop listening" : "Start voice input"}
@@ -250,6 +257,7 @@ async function toggleMic() {
         </button>
 
         <button
+          type="button"
           onClick={handleSend}
           disabled={isListening || isBusy || !inputValue.trim()}
           aria-label="Send message"
