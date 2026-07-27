@@ -27,4 +27,3 @@ backend/**/__pycache__/
 dist/
 build/
 
-README.md
